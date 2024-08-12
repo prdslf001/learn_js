@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selected test</title>
+</head>
+<style>
+    fieldset{
+        max-width: 600px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 200px auto;
+        gap: 5px;
+        padding:40px 20px;
+    }
+    select{
+
+        flex: 1 1 20px;
+        height: 24px;
+    }
+</style>
+<script src="./data.js"></script>
+<body>
+    <fieldset>
+        <legend>selected 联动</legend>
+        <select name="provice" id="provice"></select>
+        <select name="city" id="city"></select>
+        <select name="area" id="area"></select>
+    </fieldset>
+
+    <div></div>
+</body>
+<script>
+    const provice = document.querySelector('#provice');
+    const city = document.querySelector('#city');
+    const area = document.querySelector('#area');
+
+    //console.log(data)
+    //    for(let values of data){
+    //      provice.insertAdjacentHTML('beforeend',`<option>${values.name}</option>`)
+    //    }
+    render(data,provice)
+    
+   provice.addEventListener('click',(e)=>{
+        let proviceIndex = provice.selectedIndex;
+        city.innerHTML = ''
+        // for(let values of data[proviceIndex].cityList){
+        //     city.insertAdjacentHTML('beforeend',`<option>${values.name}</option>`)
+        // }
+
+        render(data[proviceIndex].cityList,city)
+   })
+
+   city.addEventListener('click',()=>{
+      let proviceIndex = provice.selectedIndex;
+      let cityIndex = city.selectedIndex;
+      area.innerHTML = ''
+    //   for(let values of data[proviceIndex].cityList[cityIndex].areaList){
+    //     area.insertAdjacentHTML('beforeend',`<option>${values}</option>`)
+    //   }
+
+    render(data[proviceIndex].cityList[cityIndex].areaList,area)
+   })
+
+
+   function render(data,region){
+       for(let values of data){
+          region.insertAdjacentHTML('beforeend',`<option>${values.name||values}</option>`)
+       }
+   }
+
+
+</script>
+</html>
