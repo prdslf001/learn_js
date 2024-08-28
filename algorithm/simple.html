@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>简单算法</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    //1、数组转对象；
+    var scoreObject = {
+        Tony: {
+            Math: 95,
+            English: 79,
+            Music: 68,
+        },
+        Simon: {
+            Math: 100,
+            English: 95,
+            Music: 98,
+        },
+        Annie: {
+            Math: 54,
+            English: 65,
+            Music: 88,
+        },
+    };
+
+    //实现对象转换为数组
+
+    //如上有一个用来存储学习成绩的对象，编写一个函数，将其转为如下的二维数组
+
+    //     var scoreArray = [
+    //     ["Tony", 95, 79, 68],
+    //     ……
+    //     ];
+
+    //     function objToArr(obj) {
+    //         var arr = [];
+    //         let objKeys = Object.keys(obj);
+    //         let subArr = objKeys.map(items=>[].concat(items,obj[items].Math,obj[items].English,obj[items].Music))
+    //         for(let values of subArr){
+    //             arr.push(values)
+    //         }
+    //         return arr;
+    //     }
+
+    //     console.log(objToArr(scoreObject))
+
+
+    // 2、数组转为对象：
+    var menuArr = [
+        [1, "Area1", -1],
+        [2, "Area2", -1],
+        [3, "Area1-1", 1],
+        [4, "Area1-2", 1],
+        [5, "Area2-1", 2],
+        [6, "Area2-2", 2],
+        [7, "Area1-2-3", 4],
+        [8, "Area2-2-1", 6],
+    ];
+
+
+    // 如上有一个用来存储多级菜单数据的数组，编写一个函数，将其转为如下的对象
+    //     var menuObject = {
+    //     "1": {
+    //         name: "Area1",
+    //         subMenu: {
+    //             "3": {
+    //                 name: "Area1-1"
+    //             },
+    //             "4": {
+    //                 name: "Area1-2",
+    //                 subMenu: {
+    //                     "7": {
+    //                         name: "Area1-2-3"
+    //                     }
+    //                 }
+    //             }
+    //         }
+    //     }
+    //     ……
+    // }
+
+
+
+    //     function arrTurnObj(softNum = -1) {
+    //         let newObj = new Object;
+    //         for(let i in menuArr){
+    //             if(menuArr[i][2] == softNum){
+    //                 newObj[menuArr[i][0]] = {
+    //                     "name" : menuArr[i][1],
+    //                    "subMenu" : arrTurnObj(menuArr[i][0]),
+
+    //                 };
+
+    //             }
+    //         }
+    //         return newObj;
+    //     }
+
+
+    //  console.log(arrTurnObj())
+
+
+    //     var menuObject = {};
+    //     menuArr.forEach((current, index) => {
+    //      if (current[2] == -1) {
+    //          menuObject[current[0]] = {
+    //              "name": current[1],
+    //              "subMenu": {}
+    //          }
+    //      }
+    //      if (current[2] == 1) {
+    //          menuObject["1"]["subMenu"][current[0]] = {
+    //             "name": current[1],
+    //             "subMenu": {}
+    //          }
+    //     }
+    //      if (current[2] == 2) {
+    //          menuObject["2"]["subMenu"][current[0]] = {
+    //              "name": current[1],
+    //              "subMenu": {}
+    //          }
+    //      }
+    //      if (current[2] == 4) {
+    //          menuObject["1"]["subMenu"]["4"]["subMenu"][current[0]] = {
+    //              "name": current[1],
+    //              "subMenu": {}
+    //          }
+    //      }
+    //      if (current[2] == 6) {
+    //         menuObject["2"][ "subMenu"]["6"]["subMenu"][current[0]] = {
+    //              "name": current[1],
+    //              "subMenu": {}
+    //          }
+    //      }
+    //     })
+    //  console.log(menuObject);
+
+    //3、字符串中每个字符出现的次数;
+    // let str = 'abrejdfhgxakdfbcfdsmkkss';
+
+    // function charAll(str) {
+    //     let objChatAll = [...str].reduce((pre, items) => {
+    //         if (pre.hasOwnProperty(items)) {
+    //             pre[items]++
+    //         } else {
+    //             pre[items] = 1
+    //         }
+    //         return pre
+    //     }, {})
+    //     return objChatAll
+    // }
+    // console.log(charAll(str))
+
+    // 4、写一个函数把字符串转为驼峰;
+    // let str = 'get-element-by-id';
+    //方法1,正则+分组替换;
+    // function strRelpace(str) {
+    //     return str.replace(/(-)([a-z])/g, (match, p1, p2) => '' + p2.toUpperCase())
+    // }
+    // console.log(strRelpace(str))
+
+    //方法2：正则+后置断言;
+    // function strRelpace(str) {
+    //     return str.replace(/(?<=-)[a-z]/g, str => str.toUpperCase()).replace(/-/g, '')
+    // }
+    // console.log(strRelpace(str))
+
+    //方法3：常规分割成数组+循环;
+
+    // function strRelpace(str) {
+    //     let tempArr = str.split(/-/g).map(items => items[0].toUpperCase() + items.slice(1));
+    //     let tempStr = tempArr.join('')
+    //     return tempStr[0].toLowerCase() + tempStr.slice(1)
+    //     //console.log(tempStr)
+    // }
+
+    //方法4：分割成数组后，从第二个元素开始遍历并改变数组元素本身；
+
+    // function strRelpace(str) {
+    //     let tempArr = str.split('-');
+    //     for (let i = 1; i < tempArr.length; i++) {
+    //         tempArr[i] = tempArr[i][0].toUpperCase() + tempArr[i].slice(1)
+    //     }
+
+    //     return tempArr.join('')
+    // }
+    // console.log(strRelpace(str))
+
+
+    //5、给定一个字符串，找到它的第一个不重复的字符，并返回它的索引。如果不存在，则返回 -1。
+    //let str = 'abrejdfhgxakdfbcfdsmkkss';
+    //方法1：双循环判断直接；暴力
+
+    // function firstUniqueChat(str) {
+    //     let tempArr = [...str];
+    //     let index = -1;
+    //     for (let i = 0; i < tempArr.length; i++) {
+    //         let chatSum = 0;
+    //         for (let j = i + 1; j < tempArr.length; j++) {
+    //             if (tempArr[i] == tempArr[j]) {
+    //                 chatSum++
+    //             }
+    //         }
+    //         if (chatSum == 0) {
+    //             index = i;
+    //             return index
+    //         }
+    //     }
+    //     return index;
+    // }
+
+    // console.log(firstUniqueChat(str))
+
+    //方法2：先计算出每个字节出现的次数，然后再遍历字符串找到第一个字节出现次数为1的；参考3；
+
+    //6、给定两个字符串 s 和 t ，编写一个函数来判断 t 是否是 s 的字母异位词。
+    //注意：若 s 和 t 中每个字符出现的次数都相同，则称 s 和 t 互为字母异位词。
+    let s = 'abcdefgaabbff';
+    let t = 'aaabbbfffcdeg';
+    //方法1：先找出s和t中每个字符出现的次数，然后再判断字符对应的字数是否相同；
+    // function chatDiff(s, t) {
+    //     if (s.length !== t.length) return false;
+    //     //二者可以先定义一个函数复用，这里省略了；
+    //     let sChatSum = [...s].reduce((pre, items) => {
+    //         if (pre.hasOwnProperty(items)) {
+    //             pre[items]++
+    //         } else {
+    //             pre[items] = 1;
+    //         }
+    //         return pre
+    //     }, {})
+
+    //     let tChatSum = [...t].reduce((pre, items) => {
+    //         if (pre.hasOwnProperty(items)) {
+    //             pre[items]++
+    //         } else {
+    //             pre[items] = 1;
+    //         }
+    //         return pre
+    //     }, {})
+
+    //     return Object.keys(sChatSum).every(items => sChatSum[items] === tChatSum[items])
+
+    // }
+
+    //方法2：先对字符排序,比较两个字符串同位置的值是否相等；
+    // function chatDiff(s, t) {
+    //     if (s.length !== t.length) return false
+    //     let sSort = [...s].sort().join('');
+    //     let tSort = [...t].sort().join('');
+
+    //     for (let i = 0; i < sSort.length; i++) {
+    //         if (sSort[i] !== tSort[i]) return false
+    //     }
+    //     return true
+    // }
+    // console.log(chatDiff(s, t))
+
+    //7、给定一个大小为 n 的数组，找到其中的多数元素。多数元素是指在数组中出现次数 大于 ⌊ n/2 ⌋ 的元素。
+    //你可以假设数组是非空的，并且给定的数组总是存在多数元素。
+
+    //方法1：计算出每个元素出现的字数，再比价；
+    // const arr = [1, 3, 5, 3, 3, 3, 1, 5, 3, 3]
+    // function moreElements(arr) {
+    //     let moreNum = Math.ceil(arr.length / 2);
+    //     let objNum = {};
+    //     for (let i = 0; i < arr.length; i++) {
+    //         objNum[arr[i]] = objNum[arr[i]] ? objNum[arr[i]] + 1 : 1   //此处用++返回错误，用+1可以，问题待考虑;
+    //     }
+    //     return Object.keys(objNums).filter(items => objNum[items] >= moreNum)
+    //     //console.log(objNum)
+    // }
+    // console.log(moreElements(arr))
+
+    // 8、字符串最大公共前缀
+    //strs = ['flower','flow','flight']  //输出f1；  str2 = ['dog','racecar','car'] // 输出''
+
+    //方法1.暴力，一个字符一个字符的比较;
+    // let arr = ['flower', 'flow', 'flight'];
+    // let arr2 = ['dog', 'racecar', 'car']
+    // function maxChat(arr) {
+    //     let i = 0;
+    //     while (i < arr[0].length) {
+    //         if (arr.every(items => items[i] == arr[0][i])) {
+    //             i++;
+    //         } else {
+    //             // return i = 0 ? '' : arr[0].slice(0, i)
+    //             break;
+    //         }
+
+    //     }
+    //     return i = 0 ? '' : arr[0].slice(0, i)
+    // }
+
+    // console.log(maxChat(arr2))
+
+    //9、给你两个字符串 haystack 和 needle ，请你在 haystack 字符串中找出 needle 字符串出现的第一个位置（下标从 0 开始）。如果不存在，则返回 -1 。
+    // haystack = “kkksdswsadbutsad”, needle = “sad   返回6；  haystack = “leetcode”, needle = “leeto”  返回-1
+    // 方法1(错误)：找到need首个字符在haystach字符中首次出现的位置，然后再依次遍历整个need字符与haystack字符比对；  这个方法有bug，如果第一个字符匹配，后面的不匹配则还是返回第一个字符了；
+    // let hay = 'kkksdswsadbutsad';
+    // let needle = 'sad';
+    // function findFirstIndex(hay, needle) {
+    //     let index = hay.indexOf(needle[0]);
+    //     if (index === -1) return index;
+    //     for (let i = 0; i < needle.length; i++) {
+    //         if (needle[i] !== hay[i]) return index;
+    //     }
+    //     return index;
+    // }
+
+    // console.log(findFirstIndex(hay, needle))
+
+    //方法2：从hay第一个字符开始，依次遍历，找到与need第一个字符相同的值，hay字符再截取与needle字符相同长度，判断其值是否相同；
+    // function findFirstIndex(hay, needle) {
+    //     for (let i = 0; i < hay.length - needle.length; i++) {    //这里只循环到hay.length - needle.length这个长幅就行，因为是第一个字段，后面直接截取再判断;
+    //         if (hay[i] === needle[0]) {
+    //             if (hay.slice(i, i + needle.length) === needle) {
+    //                 return i
+    //             }
+    //         }
+    //     }
+    //     return -1
+    // }
+    // console.log(findFirstIndex(hay, needle))
+    // 方法3；直接用正则方法match检测;  或者直接用search方法；
+    // function findFirstIndex(hay, needle) {
+    //     let regexp = new RegExp(needle);
+    //     if (!regexp.test(hay)) return -1;
+    //     return hay.match(regexp).index
+    // }
+
+    // console.log(findFirstIndex(hay, needle))
+
+    //10、给定一个数组 prices ，它的第 i 个元素 prices[i] 表示一支给定股票第 i 天的价格。 你只能选择 某一天 买入这只股票，并选择在 未来的某一个不同的日子 卖出该股票。设计一个算法来计算你所能获取的最大利润。 返回你可以从这笔交易中获取的最大利润。如果你不能获取任何利润，返回 0 。
+    //注意:这种情况是只有1次的买入和卖出；
+    //方法1；循环数组，每次循环找出小值，比较结果的最大值；
+    // let initArr = [7, 1, 5, 3, 6, 4];
+    // function maxPrice(arr) {
+    //     let min = arr[0]  //先设定第一个为最小值；
+    //     let maxValues = 0 //同样先设定最大值为0；
+    //     for (let i = 1; i < arr.length; i++) {
+    //         // if (min > arr[i]) {
+    //         //     min = arr[i];
+    //         // } else {
+    //         //     maxValues = Math.max(maxValues, arr[i] - min)
+    //         // }
+    //         min = Math.min(min, arr[i]);
+    //         maxValues = Math.max(maxValues, arr[i] - min)
+
+    //     }
+    //     return maxValues
+    // }
+    // console.log(maxPrice(initArr))
+
+    //11、贪心算法，选择每一阶段的局部最优，达到全局最优；
+    //给定一个数组 prices ，其中 prices[i] 是一支给定股票第 i 天的价格。设计一个算法来计算你所能获取的最大利润。你可以尽可能地完成更多的交易（多次买卖一支股票）。注意：你不能同时参与多笔交易（你必须在再次购买前出售掉之前的股票）。
+    //注意：这种情况是可以进行多次买入和卖出的；
+    // let initArr = [7, 1, 5, 3, 6, 4];
+    // function maxprofit(arr) {
+    //     let sum = 0;
+    //     for (let i = 1; i < arr.length; i++) {
+    //         if (arr[i] - arr[i - 1] > 0) {
+    //             sum += arr[i] - arr[i - 1]
+    //         }
+    //     }
+    //     return sum
+    // }
+    // console.log(maxprofit(initArr))
+
+    //12、滑动窗口;给定一个整数数组，计算长度为 'k' 的连续子数组的最大总和。
+    // let slideArr = [7, 1, 6, -3, 5, 3, -2, 6, 8]   // k为4；
+
+    // function maxSlide(arr) {
+    //     let maxSum = 0;
+    //     let tempSum = 0;
+    //     for (let i = 0; i < 4; i++) {
+    //         maxSum += arr[i]    // 前4项的和；
+    //     }
+    //     tempSum = maxSum;   //把前4项目的和赋值给临时变量
+    //     for (let i = 1; i < arr.length - 4 + 1; i++) {
+    //         tempSum = tempSum + arr[i + 3] - arr[i - 1]   //滑动1位，计算新4项的和
+    //         maxSum = Math.max(maxSum, tempSum)
+    //     }
+    //     return maxSum;
+    // }
+    // console.log(maxSlide(slideArr))
+
+    //13、二分法：它接受一个排序好的数组arr和要查找的目标值target。如果找到目标值，则返回对应的索引；如果未找到，则返回-1；
+    const myArray = [1, 3, 5, 7, 9, 11];
+    function binarySearch(arr, target) {
+        let start = 0;
+        let end = arr.length - 1;
+        let middle = Math.floor((start + end) / 2)
+
+        while (start <= end) {
+            if (target === arr[middle]) {
+                return middle;
+            } else if (target > arr[middle]) {
+                start = middle + 1;
+            } else {
+                end = middle - 1
+            }
+            middle = Math.floor((start + end) / 2)
+        }
+        return -1
+    }
+    console.log(binarySearch(myArray, 7))
+</script>
+
+</html>
