@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drag</title>
+</head>
+<style>
+    * {
+        padding: 0;
+        margin: 0;
+    }
+
+    div {
+        position: absolute;
+        top: 100px;
+        left: 100px;
+        background-color: bisque;
+        height: 100px;
+        width: 100px;
+    }
+</style>
+
+<body>
+    <div></div>
+</body>
+<script>
+    const dragDiv = document.querySelector('div');
+    let isDown = false;
+    let startX;
+    let startY;
+
+
+    dragDiv.addEventListener('mousedown', (e) => {
+        isDown = true;
+        startX = e.offsetX;
+        startY = e.offsetY;
+    })
+
+
+    dragDiv.addEventListener('mousemove', (e) => {
+        if (!isDown) return;
+
+        dragDiv.style.left = Math.min(Math.max(0, e.clientX - startX), document.documentElement.clientWidth - dragDiv.offsetWidth) + 'px'
+        dragDiv.style.top = Math.min(Math.max(0, e.clientY - startY), document.documentElement.clientHeight - dragDiv.offsetHeight) + 'px'
+
+    })
+
+
+
+    dragDiv.addEventListener('mouseleave', () => {
+        isDown = false;
+    })
+    dragDiv.addEventListener('mouseup', () => {
+        isDown = false;
+    })
+</script>
+
+</html>
